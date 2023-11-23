@@ -3,11 +3,11 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 
 interface State {
-  theme: 'light' | 'dark';
+  theme: string;
   loading: boolean;
 }
 
-const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? themeConstants.DARK_THEME : themeConstants.LIGHT_THEME;
+const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? themeConstants.DARK : themeConstants.LIGHT;
 const userTheme = localStorage.getItem(localStorageConstants.THEME) as State['theme'];
 
 const initialState: State = {
@@ -23,9 +23,9 @@ const globalSlice = createSlice({
       if (action.payload.theme) {
         const body = document.body;
 
-        if (action.payload.theme === themeConstants.DARK_THEME) {
+        if (action.payload.theme === themeConstants.DARK) {
           if (!body.hasAttribute('theme-node')) {
-            body.setAttribute('theme-mode', themeConstants.DARK_THEME);
+            body.setAttribute('theme-mode', themeConstants.DARK);
           }
         } else {
           if (body.hasAttribute('theme-mode')) {

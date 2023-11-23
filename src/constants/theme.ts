@@ -1,9 +1,9 @@
-const DARK_THEME = 'dark';
-const LIGHT_THEME = 'light';
-const DEFAULT_THEME = DARK_THEME;
+const DARK = 'dark';
+const LIGHT = 'light';
+const DEFAULT = DARK;
 
 export default {
-  DEFAULT_THEME,
-  DARK_THEME,
-  LIGHT_THEME,
+  DEFAULT,
+  DARK,
+  LIGHT,
 };
