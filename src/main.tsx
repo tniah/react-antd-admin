@@ -1,14 +1,14 @@
-import ReactDOM from 'react-dom';
+import '@/services/mocks';
+import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 
 import App from './App';
 import store from './stores';
 import './styles/index.less';
 
-
-ReactDOM.render(
+const root = createRoot(document.getElementById('root') as HTMLElement);
+root.render(
   <Provider store={ store }>
     <App/>
-  </Provider>,
-  document.getElementById('root'),
+  </Provider>
 );
