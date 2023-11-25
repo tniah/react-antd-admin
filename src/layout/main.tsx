@@ -6,12 +6,14 @@ import MenuComponent from '@/layout/menu';
 import routes from '@/routes';
 import { setUserState } from '@/stores/user.store';
 import { getFirstPathCode } from '@/utils/getFirstPathCode';
+import { getGlobalState } from '@/utils/getGlobalState';
 import { Drawer, Layout, theme as antTheme } from 'antd';
 import React, { Suspense, useState, useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router';
 import './index.less';
 
 const { Sider, Content } = Layout;
+const WIDTH = 992;
 
 
 const LayoutPage: React.FC = () => {
@@ -19,15 +21,10 @@ const LayoutPage: React.FC = () => {
   const [ openKey, setOpenKey ] = useState<string>();
   const [ selectedKey, setSelectedKey ] = useState<string>(location.pathname);
   const { device, collapsed } = useAppSelector(state => state.user);
-  const isMobile = device === deviceConstants.MOBILE;
   const dispatch = useAppDispatch();
   const token = antTheme.useToken();
 
-  useEffect(() => {
-    const code = getFirstPathCode(location.pathname);
-    setOpenKey(code);
-    setSelectedKey(location.pathname);
-  }, [ location.pathname ]);
+  const isMobile = device === deviceConstants.MOBILE;
 
   const onClickSiderIcon = () => {
     dispatch(
@@ -36,6 +33,27 @@ const LayoutPage: React.FC = () => {
       }),
     );
   };
+
+  useEffect(() => {
+    const code = getFirstPathCode(location.pathname);
+    setOpenKey(code);
+    setSelectedKey(location.pathname);
+  }, [ location.pathname ]);
+
+  useEffect(() => {
+    window.onresize = () => {
+      const { device } = getGlobalState();
+      const rect = document.body.getBoundingClientRect();
+      const needCollapse = rect.width < WIDTH;
+
+      dispatch(
+        setUserState({
+          device,
+          collapsed: needCollapse,
+        }),
+      );
+    }
+  }, [ dispatch ]);
 
   return (
     <Layout className="layout-page">
@@ -77,12 +95,10 @@ const LayoutPage: React.FC = () => {
               onChangeSelectedKey={ k => setSelectedKey(k) }
             />
           </Drawer>
-        )
-
-        }
+        )}
         <Content className="layout-page-content">
+          {/*<TagView/>*/ }
           <Suspense fallback={ null }>
-            {/*<TagView/>*/ }
             <Outlet/>
           </Suspense>
         </Content>
