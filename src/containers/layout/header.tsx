@@ -101,9 +101,9 @@ const HeaderComponent: React.FC<HeaderProps> =
             >
               <span className="user-action">
                 <Space size="middle">
-                  <span className="label">Hello, { username }</span>
-                  { avatarUrl && <Avatar size="large" src={ avatarUrl } /> }
-                  { !avatarUrl && <Avatar size="large" icon={ <AvatarSvg/> } /> }
+                  <span className="label">{ formatMessage({ id: 'header.avatar.hello' }) }, { username }</span>
+                  { avatarUrl && <Avatar size="large" src={ avatarUrl }/> }
+                  { !avatarUrl && <Avatar size="large" icon={ <AvatarSvg/> }/> }
                 </Space>
               </span>
             </Dropdown>
