@@ -6,7 +6,9 @@ import { LocaleFormatter } from '@/locales';
 import { localeConfig, locales } from '@/locales/localeConfig';
 import { HistoryRouter } from '@/routes/history';
 import RenderRouter from '@/routes/renderRouter';
+import { apiLogin } from '@/services/apis/user';
 import { setGlobalState } from '@/stores/global.store';
+import { setUserState } from '@/stores/user.store';
 import { ConfigProvider, Spin, theme as antdTheme } from 'antd';
 import dayjs from 'dayjs';
 import 'dayjs/locale/vi.js';
@@ -49,6 +51,17 @@ const App: React.FC = () => {
       dayjs.locale('en');
     }
   }, [ locale ]);
+
+  useEffect(() => {
+    apiLogin().then(data => {
+      dispatch(
+        setUserState({
+          username: data.username,
+          avatarUrl: data?.avatarUrl,
+        }),
+      );
+    })
+  }, [ dispatch ]);
 
   return (
     <ConfigProvider

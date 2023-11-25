@@ -1,4 +1,4 @@
-import { MenuList } from '@/interfaces/layout/menu.interface';
+import { MenuList } from '@/interfaces/menu.interface';
 import { DashboardOutlined, UserOutlined, ApartmentOutlined } from '@ant-design/icons';
 
 const routes: MenuList = [
@@ -15,10 +15,10 @@ const routes: MenuList = [
     path: '/tenant',
     children: [
       {
-        code: 'userTenant',
+        code: 'oauthClient',
         icon: UserOutlined,
-        label: 'User',
-        path: '/tenant/user',
+        label: 'OAuth Client',
+        path: '/tenant/client',
       },
     ]
   }

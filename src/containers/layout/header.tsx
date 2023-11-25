@@ -23,7 +23,7 @@ const HeaderComponent: React.FC<HeaderProps> =
      collapsed,
      onClickSiderIcon,
    }) => {
-    const { locale } = useAppSelector(state => state.user);
+    const { locale, username, avatarUrl } = useAppSelector(state => state.user);
     const { theme } = useAppSelector(state => state.global);
     const token = antTheme.useToken();
     const dispatch = useAppDispatch();
@@ -100,8 +100,8 @@ const HeaderComponent: React.FC<HeaderProps> =
             >
               <span className="user-action">
                 <Space size="middle">
-                  <span className="label">Nguyen Trong Hai</span>
-                  <Avatar size="large" src="https://avatars.githubusercontent.com/u/17630614?v=4"/>
+                  <span className="label">Hello, { username }</span>
+                  <Avatar size="large" src={ avatarUrl }/>
                 </Space>
               </span>
             </Dropdown>

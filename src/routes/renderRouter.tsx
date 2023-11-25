@@ -1,10 +1,10 @@
 import LayoutPage from '@/containers/layout';
 import DashboardPage from '@/pages/dashboard';
-import UserPage from '@/pages/user';
+import OauthClientPage from '@/pages/oauthClient';
+import TenantPage from '@/pages/tenant';
 import React from 'react';
 import type { RouteObject } from 'react-router-dom';
 import { useRoutes } from 'react-router-dom';
-import TenantPage from '@/pages/tenant';
 
 const routeList: RouteObject[] = [
   {
@@ -20,8 +20,8 @@ const routeList: RouteObject[] = [
         element: <TenantPage/>,
       },
       {
-        path: 'tenant/user',
-        element: <UserPage/>
+        path: 'tenant/client',
+        element: <OauthClientPage/>
       },
     ]
   },

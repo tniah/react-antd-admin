@@ -1,5 +1,6 @@
 import HeaderComponent from '@/containers/layout/header';
 import SiderComponent from '@/containers/layout/sider';
+// import TagView from '@/containers/layout/tagView';
 import { useAppSelector, useAppDispatch } from '@/hooks';
 import routes from '@/routes';
 import { setUserState } from '@/stores/user.store';
@@ -48,6 +49,7 @@ const LayoutPage: React.FC = () => {
         />
         <Content className="layout-page-content">
           <Suspense fallback={ null }>
+            {/*<TagView/>*/}
             <Outlet/>
           </Suspense>
         </Content>

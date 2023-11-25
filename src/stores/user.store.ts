@@ -4,8 +4,11 @@ import { UserState } from '@/interfaces/user.interface';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: UserState = {
+  username: '',
+  avatarUrl: '',
   collapsed: false,
-  locale: (localStorage.getItem(localStorageConstants.LOCALE) || localeConstants.VI_VN) as Locale
+  locale: (localStorage.getItem(localStorageConstants.LOCALE) || localeConstants.VI_VN) as Locale,
+  menuList: [],
 }
 
 const userSlice = createSlice({
@@ -21,4 +24,3 @@ const userSlice = createSlice({
 export const { setUserState } = userSlice.actions;
 
 export default userSlice.reducer;
-

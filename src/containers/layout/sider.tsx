@@ -1,4 +1,4 @@
-import { MenuList } from '@/interfaces/layout/menu.interface';
+import { MenuList } from '@/interfaces/menu.interface';
 import { Layout, Menu, theme as antTheme } from 'antd';
 import type { FC } from 'react';
 import React, { createElement } from 'react';
@@ -17,8 +17,6 @@ interface MenuProps {
 
 const SiderComponent: FC<MenuProps> = props => {
   const { collapsed, menuList, openKey, onChangeOpenKey, selectedKey, onChangeSelectedKey } = props;
-  console.log("selectedKey ", selectedKey);
-  console.log("openKey ", openKey);
   const navigate = useNavigate();
   const token = antTheme.useToken();
 
