@@ -2,17 +2,18 @@ import AvatarSvg from '@/assets/images/avatar.svg?react';
 import SSILogoSvg from '@/assets/images/logo.svg';
 import MoonSvg from '@/assets/images/moon.svg?react';
 import SunSvg from '@/assets/images/sun.svg?react';
-import { themeConstants, localStorageConstants } from '@/constants';
+import { themeConstants, localStorageConstants, deviceConstants } from '@/constants';
 import { useAppSelector, useAppDispatch } from '@/hooks';
 import { useLocale, LocaleFormatter } from '@/locales';
 import { locales } from '@/locales/localeConfig';
 import { setGlobalState } from '@/stores/global.store';
 import { setUserState } from '@/stores/user.store';
 import { MenuUnfoldOutlined, MenuFoldOutlined, LogoutOutlined } from '@ant-design/icons';
-import { Dropdown, Layout, theme as antTheme, Tooltip, Avatar, Space } from 'antd';
+import { Dropdown, Layout, theme as antTheme, Tooltip, Avatar, Space, Typography } from 'antd';
 import React, { createElement } from 'react';
 
 const { Header } = Layout;
+const { Text } = Typography;
 
 interface HeaderProps {
   collapsed: boolean,
@@ -24,7 +25,7 @@ const HeaderComponent: React.FC<HeaderProps> =
      collapsed,
      onClickSiderIcon,
    }) => {
-    const { locale, username, avatarUrl } = useAppSelector(state => state.user);
+    const { device, locale, username, avatarUrl } = useAppSelector(state => state.user);
     const { theme } = useAppSelector(state => state.global);
     const token = antTheme.useToken();
     const dispatch = useAppDispatch();
@@ -47,9 +48,11 @@ const HeaderComponent: React.FC<HeaderProps> =
 
     return (
       <Header className="layout-page-header bg-2" style={ { backgroundColor: token.token.colorBgContainer } }>
-        <div className="logo" style={ { width: collapsed ? 80 : 250 } }>
-          <img src={ SSILogoSvg } alt="" style={ { marginRight: collapsed ? '2px' : '20px', width: '100%' } }/>
-        </div>
+        { device !== deviceConstants.MOBILE && (
+          <div className="logo" style={ { width: collapsed ? 80 : 250 } }>
+            <img src={ SSILogoSvg } alt="" style={ { marginRight: collapsed ? '2px' : '20px', width: '100%' } }/>
+          </div>
+        ) }
         <div className="layout-page-header-main">
           <div onClick={ onClickSiderIcon }>
             <span id="sidebar-trigger">{ collapsed ? <MenuUnfoldOutlined/> : <MenuFoldOutlined/> }</span>
@@ -101,7 +104,10 @@ const HeaderComponent: React.FC<HeaderProps> =
             >
               <span className="user-action">
                 <Space size="middle">
-                  <span className="label">{ formatMessage({ id: 'header.avatar.hello' }) }, { username }</span>
+                  <span className="label">
+                    <Text type="secondary">{ `${ formatMessage({ id: 'header.avatar.hello' }) }, ` }</Text>
+                    <Text>{ username }</Text>
+                  </span>
                   { avatarUrl && <Avatar size="large" src={ avatarUrl }/> }
                   { !avatarUrl && <Avatar size="large" icon={ <AvatarSvg/> }/> }
                 </Space>

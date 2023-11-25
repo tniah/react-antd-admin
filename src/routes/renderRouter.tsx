@@ -1,4 +1,4 @@
-import LayoutPage from '@/containers/layout';
+import { LayoutPage } from '@/layout';
 import DashboardPage from '@/pages/dashboard';
 import OauthClientPage from '@/pages/oauthClient';
 import TenantPage from '@/pages/tenant';
