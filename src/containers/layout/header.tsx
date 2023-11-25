@@ -1,3 +1,4 @@
+import AvatarSvg from '@/assets/images/avatar.svg?react';
 import SSILogoSvg from '@/assets/images/logo.svg';
 import MoonSvg from '@/assets/images/moon.svg?react';
 import SunSvg from '@/assets/images/sun.svg?react';
@@ -101,7 +102,8 @@ const HeaderComponent: React.FC<HeaderProps> =
               <span className="user-action">
                 <Space size="middle">
                   <span className="label">Hello, { username }</span>
-                  <Avatar size="large" src={ avatarUrl }/>
+                  { avatarUrl && <Avatar size="large" src={ avatarUrl } /> }
+                  { !avatarUrl && <Avatar size="large" icon={ <AvatarSvg/> } /> }
                 </Space>
               </span>
             </Dropdown>
