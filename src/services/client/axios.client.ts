@@ -37,6 +37,7 @@ axiosClient.interceptors.response.use(
     return config?.data;
   },
   error => {
+    console.log('AAAAAAAAAAAAA: ERRORRRRRRRRRRRRRRRRRR')
     store.dispatch(
       setGlobalState({
         loading: false,
