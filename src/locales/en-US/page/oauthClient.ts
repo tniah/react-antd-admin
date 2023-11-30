@@ -1,0 +1,18 @@
+export const enUS_oauthClientPage = {
+  'page.oauthClient.label.clientId': 'Client ID',
+  'page.oauthClient.label.name': 'Client Name',
+  'page.oauthClient.rule.name.required': 'Please enter Client Name!',
+  'page.oauthClient.rule.name.onlyWhitespace': 'Client name not only has whitespace!',
+  'page.oauthClient.label.uri': 'Client URI',
+  'page.oauthClient.rule.uri.notValid': 'Client URI is not a valid URI!',
+  'page.oauthClient.label.tokenEndpointAuthMethod': 'Authentication Method',
+  'page.oauthClient.rule.tokenEndpointAuthMethod.required': 'Please enter Authentication Method!',
+  'page.oauthClient.label.grantTypes': 'Grant Types',
+  'page.oauthClient.label.logoUri': 'Logo URI',
+  'page.oauthClient.rule.logoUri.notValid': 'Logo URI is not a valid URI!',
+  'page.oauthClient.label.redirectUris': 'Redirect URIs',
+  'page.oauthClient.rule.redirectUri.notValid': 'Redirect URI is not a valid URI!',
+  'page.oauthClient.button.redirectUri.add': 'Add Redirect URI',
+  'page.oauthClient.label.tenant': 'Tenant',
+  'page.oauthClient.label.scopes': 'Scopes',
+}

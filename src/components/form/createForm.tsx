@@ -1,24 +1,16 @@
 import { GoBackButton, SaveButton } from '@/components/button';
+import { Form } from '@/components/form';
 import type { FormProps } from 'antd';
 import { Col, Row } from 'antd';
 import type { ReactNode } from 'react';
-import Form from './form';
 
 interface CreateFormProps<T> extends FormProps<T> {
-  onSubmit: (values: T) => void;
   children: ReactNode;
 }
 
 const BaseCreateForm = <T extends object>(props: CreateFormProps<T>) => {
-  const { onSubmit, children, ...rest } = props;
+  const { children, ...rest } = props;
   const [ form ] = Form.useForm<T>();
-
-  const onClick = async () => {
-    const values = await form.validateFields();
-    if (values) {
-      onSubmit(values);
-    }
-  };
 
   return (
     <Form
@@ -30,7 +22,7 @@ const BaseCreateForm = <T extends object>(props: CreateFormProps<T>) => {
         <Col span={ 12 } offset={ 0 }>
           <Form.Item>
             <GoBackButton />
-            <SaveButton onClick={ onClick } />
+            <SaveButton />
           </Form.Item>
         </Col>
       </Row>

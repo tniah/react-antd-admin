@@ -1,6 +1,9 @@
+import notification from '@/components/alert';
 import { CreateForm } from '@/components/form';
+import { oauthClientPageConstants } from '@/constants/page';
 import type { CreateParams } from '@/interfaces/oauthClient';
 import { useLocale } from '@/locales';
+import { oauthClientApi } from '@/services/apis';
 import { LinkOutlined, DeleteOutlined } from '@ant-design/icons';
 import { Row, Col, Input, Select, Button } from 'antd';
 import type { FC } from 'react';
@@ -9,13 +12,24 @@ import type { FC } from 'react';
 const CreateOAuthClientPage: FC = () => {
   const { formatMessage } = useLocale();
 
-  const onSubmit = (values: CreateParams) => {
-    console.log(values);
+  const onSubmit = async (values: CreateParams) => {
+    Object.keys(values).forEach(key => {
+      values[key as keyof typeof values] === undefined
+      && delete values[key as keyof typeof values];
+    });
+    if (values.redirectUris !== undefined) {
+      const redirectUris = values.redirectUris.filter(value => value.trim() !== '');
+      Object.assign(values, { redirectUris });
+    }
+    oauthClientApi.create(values).then(data => {
+      console.log(data);
+      notification.success('OAuth Client created successfully!');
+    });
   };
 
   return (
     <CreateForm<CreateParams>
-      onSubmit={ onSubmit }
+      onFinish={ onSubmit }
     >
       <Row gutter={ 16 }>
         <Col span={ 12 }>
@@ -52,23 +66,7 @@ const CreateOAuthClientPage: FC = () => {
               message: formatMessage({ id: 'page.oauthClient.rule.tokenEndpointAuthMethod.required' }),
             } ] }
           >
-            <Select
-              options={ [
-                {
-                  value: 'none',
-                  label: 'None',
-                },
-                {
-                  value: 'client_secret_post',
-                  label: 'Client secret post',
-                },
-                {
-                  value: 'client_secret_basic',
-                  label: 'Client secret basic',
-                },
-              ] }
-            />
-
+            <Select options={ oauthClientPageConstants.TOKEN_ENDPOINT_AUTH_METHODS } />
           </CreateForm.Item>
         </Col>
         <Col span={ 12 }>
@@ -76,19 +74,7 @@ const CreateOAuthClientPage: FC = () => {
             name="grantTypes"
             label={ formatMessage({ id: 'page.oauthClient.label.grantTypes' }) }
           >
-            <Select
-              mode="multiple"
-              options={ [
-                {
-                  value: 'authorization_code',
-                  label: 'Authorization Code',
-                },
-                {
-                  value: 'client_credentials',
-                  label: 'Client Credentials',
-                },
-              ] }
-            />
+            <Select mode="multiple" options={ oauthClientPageConstants.GRANT_TYPES } />
           </CreateForm.Item>
         </Col>
       </Row>
@@ -137,7 +123,7 @@ const CreateOAuthClientPage: FC = () => {
                   <Button
                     type="dashed"
                     onClick={ () => {
-                      add('', 0);
+                      add('', -1);
                     } }
                     style={ { width: '100%' } }
                   >

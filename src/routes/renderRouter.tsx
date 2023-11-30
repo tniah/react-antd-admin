@@ -1,6 +1,7 @@
 import { LayoutPage } from '@/layout';
 import DashboardPage from '@/pages/dashboard';
-import OauthClientPage from '@/pages/oauthClient';
+// import OauthClientPage from '@/pages/oauthClient';
+import CreateOAuthClientPage from '@/pages/oauthClient/create';
 import TenantPage from '@/pages/tenant';
 import React from 'react';
 import type { RouteObject } from 'react-router-dom';
@@ -21,7 +22,7 @@ const routeList: RouteObject[] = [
       },
       {
         path: 'tenant/client',
-        element: <OauthClientPage/>
+        element: <CreateOAuthClientPage/>
       },
     ]
   },
